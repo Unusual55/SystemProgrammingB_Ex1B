@@ -11,11 +11,11 @@ namespace ariel
      *  and if it's not, the function will throw an exception
      * @param row number of rows
      * @param col number of columns
-     * @param a the first character
-     * @param b the second character
+     * @param char1 the first character
+     * @param char2 the second character
      */
 
-    void inputCheck(int row, int col, char a, char b)
+    void inputCheck(int row, int col, char char1, char char2)
     {
         /**
         If the row or the column number is even, the function will throw an exception
@@ -28,7 +28,7 @@ namespace ariel
         }
 
         // If one or both of the characters are unprintable or ' ', the funtion will throw an exception
-        if ((std::isprint(a) == 0) || (std::isprint(b) == 0) || a == ' ' || b == ' ')
+        if ((std::isprint(char1) == 0) || (std::isprint(char2) == 0) || char1 == ' ' || char2 == ' ')
         {
             std::__throw_invalid_argument("Input characters have to be printable.");
         }
@@ -58,43 +58,43 @@ namespace ariel
          * Note: This function will not throw an exception for ' ' since its ascii value is 32, but the second check would 
          * throw an exception.
          */
-        if((a<LowerBound||a>UpperBound)||(b<LowerBound||b>UpperBound)){
+        if((char1<LowerBound||char1>UpperBound)||(char2<LowerBound||char2>UpperBound)){
             std::__throw_invalid_argument("The characters must be printable");
         }
     }
 
     /**
-     * @brief This function get the size of the mat and the wanted characters and returns a mat in the wanted size and format.
+     * @brief This function get the size of the mat and the wanted characters and returns char1 mat in the wanted size and format.
      * The function divide the mat into 3 parts:
      * The upper part
      * The middle row
      * The lower half
      * and deals with each part differently in order to receive the desired result
-     * @param n number of columns
-     * @param m number of rows
-     * @param a first character
-     * @param b second character
+     * @param col number of columns
+     * @param row number of rows
+     * @param char1 first character
+     * @param char2 second character
      * @return string that represent the mat
      */
 
-    string mat(int n, int m, char a, char b)
+    string mat(int col, int row, char char1, char char2)
     {
         // Check if the input is valid
-        ariel::inputCheck(n, m, a, b);
+        ariel::inputCheck(col, row, char1, char2);
 
         // Create the string which will be used to be the output and the current row in the mat
         string mat;
         string out;
 
         // Set the first row to contain only the first character and add it to the output string
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < col; i++)
         {
-            mat += a;
+            mat += char1;
         }
         out = mat + '\n';
 
         // If the number of row is 1, we finished the mat and will return it.
-        if (m == 1)
+        if (row == 1)
         {
             return out;
         }
@@ -109,21 +109,21 @@ namespace ariel
          * After each iteration we will increase count by one
          * *Flip: Change from the first character to the second character, and from the second character to the first character
          */
-        for (int i = 1; i < m / 2; i++)
+        for (int i = 1; i < row / 2; i++)
         {
-            for (int j = i; j < n - i; j++)
+            for (int j = i; j < col - i; j++)
             {
 
                 // Flips from first to second character
-                if (mat.at(j) == a)
+                if (mat.at(j) == char1)
                 {
-                    mat[j] = b;
+                    mat[j] = char2;
                 }
 
                 // Flip from second to first character
                 else
                 {
-                    mat[j] = a;
+                    mat[j] = char1;
                 }
             }
 
@@ -134,15 +134,15 @@ namespace ariel
 
         //Middle row of the mat
         //Flip only the characters that we need to flip before reaching the lower half without increasing count
-        for (int i = count; i < n - count; i++)
+        for (int i = count; i < col - count; i++)
         {
-            if (mat.at(i) == a)
+            if (mat.at(i) == char1)
             {
-                mat[i] = b;
+                mat[i] = char2;
             }
             else
             {
-                mat[i] = a;
+                mat[i] = char1;
             }
         }
 
@@ -158,18 +158,18 @@ namespace ariel
 
         for (int i = count; i > 0; i--)
         {
-            for (int j = i; j < n - i; j++)
+            for (int j = i; j < col - i; j++)
             {
                 //Flip from first to second character
-                if (mat.at(j) == a)
+                if (mat.at(j) == char1)
                 {
-                    mat[j] = b;
+                    mat[j] = char2;
                 }
 
                 //Flip from second to first character
                 else
                 {
-                    mat[j] = a;
+                    mat[j] = char1;
                 }
             }
             //Add the row to the current mat
